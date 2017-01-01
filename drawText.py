@@ -4,7 +4,7 @@ from PIL import ImageFont
 import matplotlib.pyplot as plt
 import numpy as np
 
-def drawText(page, charList,pageS,cellS,rows,cols) :
+def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
     # define text parameters
     fontsize = 12
     font = ImageFont.truetype("material/yumindb.ttf", fontsize)
@@ -16,9 +16,6 @@ def drawText(page, charList,pageS,cellS,rows,cols) :
     tableHeight = rows * cellS[0]
     topLeft = (topMargin, int((pageS[1]-tableWidth)/2))
     yshift = 4;
-
-    # randomize the charList
-
 
     # add text
     xstart = topLeft[1]+5
@@ -33,24 +30,27 @@ def drawText(page, charList,pageS,cellS,rows,cols) :
 
     ycount = 0
     yrange = range(ystart + cellS[0], yend, (ystep+2))
+
+    charArray = np.asarray(charList)
     for x in range(xstart, xend, xstep):
+        randCharList = charArray[idPermute[ycount:min(ycount+rows-2,len(charList))],:]
         # Need to slightly adjust the location of each text
         # in order to make them "look like" in the center of the box
         pageDraw.text((x, ystart), "Roma", font=font)
 
-        for item in enumerate(charList[ycount:min(ycount+rows-2,len(charList))]):
+        for item in enumerate(randCharList):
             pageDraw.text((x+1,yrange[item[0]]),item[1][0],font = font)
 
         x += (cellS[1] + 7)
         pageDraw.text((x, ystart), "Hira", font=font)
 
-        for item in enumerate(charList[ycount:min(ycount+rows-2,len(charList))]):
+        for item in enumerate(randCharList):
             pageDraw.text((x+1,yrange[item[0]]),unicode(item[1][1],"utf-8"),font = font)
 
         x += (cellS[1] + 2)
         pageDraw.text((x, ystart), "Kata", font=font)
 
-        for item in enumerate(charList[ycount:min(ycount+rows-2,len(charList))]):
+        for item in enumerate(randCharList):
             pageDraw.text((x+1,yrange[item[0]]),unicode(item[1][2],"utf-8"),font = font)
 
         ycount += rows
