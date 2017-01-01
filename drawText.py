@@ -14,14 +14,32 @@ def drawText(page, charList,pageS,cellS,rows,cols) :
     tableWidth = cols * cellS[1]
     tableHeight = rows * cellS[0]
     topLeft = (topMargin, int((pageS[1]-tableWidth)/2))
+    yshift = 4;
 
     # add text on first row
-    pageDraw = ImageDraw.Draw(pageIm)
-    for x in range(topLeft[1],pageS[1]-topLeft[1]-2*cellS[1], 3*cellS[1]+10):
-        print x
-        pageDraw.text((x,topMargin+cellS[0]/2-fontsize/2),"Roma",font = font)
+    xstart = topLeft[1]
+    xend   = pageS[1]-topLeft[1]-2*cellS[1]
+    xstep  = 3*cellS[1]+8
+    ystart = topMargin+cellS[0]/2-yshift
+    yend   = ystart + rows*cellS[0]
+    ystep = cellS[0]
 
-    pageIm.show()
+    pageDraw = ImageDraw.Draw(pageIm)
+    for x in range(xstart,xend, xstep):
+        print x
+        # Need to slightly adjust the location of each text
+        # in order to make them "look like" in the center of the box
+        for y in range(ystart,yend,ystep):
+            x+=5
+            pageDraw.text((x,topMargin+cellS[0]/2-yshift),"Roma",font = font)
+
+            x+=(cellS[1]+7)
+            pageDraw.text((x,topMargin+cellS[0]/2-yshift),"Hira",font = font)
+            x+=(cellS[1]+2)
+            pageDraw.text((x,topMargin+cellS[0]/2-yshift),"Kata",font = font)
+
+    plt.imshow(pageIm,cmap='gray')
+    plt.show()
 '''
     pageDraw = ImageDraw.Draw(pageIm)
     pageDraw.text((10, 10), "Happy new year", font=font)
