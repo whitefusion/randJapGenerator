@@ -27,16 +27,17 @@ def drawText(page, charList,pageS,cellS,rows,cols) :
     pageDraw = ImageDraw.Draw(pageIm)
     for x in range(xstart,xend, xstep):
         print x
+        x += 5
+        pageDraw.text((x, ystart), "Roma", font=font)
+
+        x += (cellS[1] + 7)
+        pageDraw.text((x, ystart), "Hira", font=font)
+        x += (cellS[1] + 2)
+        pageDraw.text((x, ystart), "Kata", font=font)
         # Need to slightly adjust the location of each text
         # in order to make them "look like" in the center of the box
-        for y in range(ystart,yend,ystep):
-            x+=5
-            pageDraw.text((x,topMargin+cellS[0]/2-yshift),"Roma",font = font)
-
-            x+=(cellS[1]+7)
-            pageDraw.text((x,topMargin+cellS[0]/2-yshift),"Hira",font = font)
-            x+=(cellS[1]+2)
-            pageDraw.text((x,topMargin+cellS[0]/2-yshift),"Kata",font = font)
+        for y in range(ystart+cellS[0],yend,ystep):
+            pass
 
     plt.imshow(pageIm,cmap='gray')
     plt.show()
