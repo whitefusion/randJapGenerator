@@ -32,26 +32,26 @@ def drawText(page, charList,pageS,cellS,rows,cols) :
     pageDraw = ImageDraw.Draw(pageIm)
 
     ycount = 0
-    yrange = range(ystart + cellS[0], yend, ystep)
+    yrange = range(ystart + cellS[0], yend, (ystep+2))
     for x in range(xstart, xend, xstep):
         # Need to slightly adjust the location of each text
         # in order to make them "look like" in the center of the box
         pageDraw.text((x, ystart), "Roma", font=font)
 
         for item in enumerate(charList[ycount:min(ycount+rows-2,len(charList))]):
-            pageDraw.text((x,yrange[item[0]]),item[1][0],font = font)
+            pageDraw.text((x+1,yrange[item[0]]),item[1][0],font = font)
 
         x += (cellS[1] + 7)
         pageDraw.text((x, ystart), "Hira", font=font)
 
         for item in enumerate(charList[ycount:min(ycount+rows-2,len(charList))]):
-            pageDraw.text((x,yrange[item[0]]),unicode(item[1][1],"utf-8"),font = font)
+            pageDraw.text((x+1,yrange[item[0]]),unicode(item[1][1],"utf-8"),font = font)
 
         x += (cellS[1] + 2)
         pageDraw.text((x, ystart), "Kata", font=font)
 
         for item in enumerate(charList[ycount:min(ycount+rows-2,len(charList))]):
-            pageDraw.text((x,yrange[item[0]]),unicode(item[1][2],"utf-8"),font = font)
+            pageDraw.text((x+1,yrange[item[0]]),unicode(item[1][2],"utf-8"),font = font)
 
         ycount += rows
 
