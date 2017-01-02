@@ -37,3 +37,8 @@ permute = np.random.permutation(len(itemList))
 exerSheet, Solution = drawText(page, itemList,permute,pageS,cellS,rows,cols)
 
 # convert image to PDF and export
+size = [4*x for x in exerSheet.size]
+exerSheet_resized = exerSheet.resize(size, Image.ANTIALIAS)
+Solution_resized = Solution.resize(size, Image.ANTIALIAS)
+exerSheet_resized.save("dictation.pdf")
+Solution_resized.save("solution.pdf")
