@@ -8,7 +8,9 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
     # define text parameters
     fontsize = 12
     font = ImageFont.truetype("material/yumindb.ttf", fontsize)
+    page2 = np.copy(page)
     pageIm = Image.fromarray(np.uint8(page) * 255)
+    pageIm2 = Image.fromarray(np.uint8(page2) * 255)
     rows+=1
     cols+=1
     topMargin = int(pageS[0] * 0.1)
@@ -27,7 +29,7 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
     ystep  = cellS[0]
 
     pageDraw = ImageDraw.Draw(pageIm)
-
+    pageDrawNoAnswer = ImageDraw.Draw(pageIm2)
     ycount = 0
     yrange = range(ystart + cellS[0], yend, (ystep+2))
 
@@ -37,26 +39,26 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
         # Need to slightly adjust the location of each text
         # in order to make them "look like" in the center of the box
         pageDraw.text((x, ystart), "Roma", font=font)
-
+        pageDrawNoAnswer.text((x, ystart), "Roma", font=font)
         for item in enumerate(randCharList):
             pageDraw.text((x+1,yrange[item[0]]),item[1][0],font = font)
+            pageDrawNoAnswer.text((x + 1, yrange[item[0]]), item[1][0], font=font)
 
         x += (cellS[1] + 7)
         pageDraw.text((x, ystart), "Hira", font=font)
-
+        pageDrawNoAnswer.text((x, ystart), "Hira", font=font)
         for item in enumerate(randCharList):
             pageDraw.text((x+1,yrange[item[0]]),unicode(item[1][1],"utf-8"),font = font)
 
         x += (cellS[1] + 2)
         pageDraw.text((x, ystart), "Kata", font=font)
-
+        pageDrawNoAnswer.text((x, ystart), "Kata", font=font)
         for item in enumerate(randCharList):
             pageDraw.text((x+1,yrange[item[0]]),unicode(item[1][2],"utf-8"),font = font)
 
         ycount += rows
 
-    plt.imshow(pageIm,cmap='gray')
-    plt.show()
+    return pageIm2, pageIm
 '''
     pageDraw = ImageDraw.Draw(pageIm)
     pageDraw.text((10, 10), "Happy new year", font=font)
