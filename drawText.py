@@ -34,6 +34,8 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
     yrange = range(ystart + cellS[0], yend, (ystep+2))
 
     charArray = np.asarray(charList)
+
+    # add text row by row
     for x in range(xstart, xend, xstep):
         randCharList = charArray[idPermute[ycount:min(ycount+rows-2,len(charList))],:]
         # Need to slightly adjust the location of each text
@@ -56,13 +58,9 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
         for item in enumerate(randCharList):
             pageDraw.text((x+1,yrange[item[0]]),unicode(item[1][2],"utf-8"),font = font)
 
-        ycount += rows
+        ycount += rows -2
 
     return pageIm2, pageIm
-'''
-    pageDraw = ImageDraw.Draw(pageIm)
-    pageDraw.text((10, 10), "Happy new year", font=font)
-    pageIm.show()
-'''
+
 
 

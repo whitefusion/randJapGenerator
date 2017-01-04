@@ -2,6 +2,7 @@ from drawTable import drawTable
 from readCSV import readCsvFile
 from drawText import drawText
 from PIL import Image
+import matplotlib.pyplot as plt
 import numpy as np
 import math
 import sys
@@ -12,10 +13,10 @@ itemList = readCsvFile(str(sys.argv[1]))
 # initialize parameter
 pageS = (1018,720)
 cellS = (35,40)
-charPerRow = 5
+charPerRow = 5.0
 # assume 5 chars per row
 cols = 15
-rows = math.ceil(itemList.__len__()/charPerRow)
+rows = int(math.ceil(itemList.__len__()/charPerRow))+1
 
 '''
 rows = 23
@@ -29,8 +30,8 @@ topLeft = (topMargin, int((pageS[1] - tableWidth) / 2))
 
 # draw table
 page = drawTable(pageS,cellS,rows,cols)
-#plt.imshow(page,cmap = 'gray')
-#plt.show()
+plt.imshow(page,cmap = 'gray')
+plt.show()
 
 # randomize the itemlist
 permute = np.random.permutation(len(itemList))
