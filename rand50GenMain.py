@@ -8,7 +8,26 @@ import math
 import sys
 
 # Read in document
-itemList = readCsvFile(str(sys.argv[1]))
+def option(x):
+    return {
+        '-Roma': 1,
+        '-Hara': 2,
+        '-Help': -1
+    }[x]
+
+if(sys.argv.__len__() > 2):
+    opt = option(sys.argv[2])
+    itemList = readCsvFile(sys.argv[1])
+else:
+    opt = 0
+    itemList = readCsvFile('JapSyllabary.csv')
+
+if(opt == -1):
+    print('python *.csv -option \n')
+    print('-option: \n')
+    print('-Roma: show roma pronounciation only \n')
+    print('-Hara: show haragana only')
+    sys.exit()
 
 # Default page size and cell size
 pageS = (1018,720)
@@ -21,14 +40,12 @@ rows = int(math.ceil(itemList.__len__()/charPerRow))+1
 
 # Draw table
 page = drawTable(pageS,cellS,rows,cols)
-#plt.imshow(page,cmap = 'gray')
-#plt.show()
 
 # Randomize the itemlist
 permute = np.random.permutation(len(itemList))
 
 # Fill items into the cell
-exerSheet, Solution = drawText(page, itemList,permute,pageS,cellS,rows,cols)
+exerSheet, Solution = drawText(page, itemList,permute,pageS,cellS,rows,cols,opt)
 
 # Convert image to PDF and export
 size = [4*x for x in exerSheet.size]

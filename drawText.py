@@ -6,7 +6,7 @@ import numpy as np
 import math
 from getTextDimensions import GetTextDimensions
 
-def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
+def drawText(page, charList,idPermute,pageS,cellS,rows,cols,option) :
 
     # Set up page and text parameters
     fontsize = 12
@@ -51,7 +51,8 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
         for item in enumerate(randCharList):
             x0,_=GetTextDimensions(item[1][0],fontsize,fontType)
             pageDraw.text((x-(x0/2)-2,yrange[item[0]]),item[1][0],font = font)
-            pageDrawNoAnswer.text((x-(x0/2)-2, yrange[item[0]]), item[1][0], font=font)
+            if(option < 2):
+                pageDrawNoAnswer.text((x-(x0/2)-2, yrange[item[0]]), item[1][0], font=font)
 
         x += (cellS[1] )
         pageDraw.text((x-xH/2-3, ystart), "Hira", font=font)
@@ -59,6 +60,8 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols) :
         for item in enumerate(randCharList):
             x1, _ = GetTextDimensions(item[1][1], fontsize, fontType)
             pageDraw.text((x-x1/2,yrange[item[0]]),unicode(item[1][1],"utf-8"),font = font)
+            if(option == 2):
+                pageDrawNoAnswer.text((x-(x0/2)-2, yrange[item[0]]), unicode(item[1][1],"utf-8"), font=font)
 
         x += (cellS[1] )
         pageDraw.text((x-xK/2-2, ystart), "Kata", font=font)
