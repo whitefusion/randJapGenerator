@@ -12,21 +12,30 @@ def option(x):
     return {
         '-Roma': 1,
         '-Hara': 2,
-        '-Help': -1
+        '-Normal': -1,
+        '-Help': 0
     }[x]
 
-if(sys.argv.__len__() > 2):
-    opt = option(sys.argv[2])
-    itemList = readCsvFile(sys.argv[1])
-else:
-    opt = 0
+order = 0
+opt = 0
+if(sys.argv.__len__() == 1):
     itemList = readCsvFile('JapSyllabary.csv')
+if(sys.argv.__len__() >1):
+    itemList = readCsvFile(sys.argv[1])
+if(sys.argv.__len__() >2):
+    opt = option(sys.argv[2])
+if(sys.argv.__len__() > 3):
+    order = 1
 
-if(opt == -1):
-    print('python *.csv -option \n')
+if(opt == 0):
+    print('python *.csv -option -order \n')
     print('-option: \n')
     print('-Roma: show roma pronounciation only \n')
-    print('-Hara: show haragana only')
+    print('-Hara: show haragana only \n')
+    print('-Help: show option list \n')
+    print('-order: \n')
+    print('-Normal: normal order')
+
     sys.exit()
 
 # Default page size and cell size
@@ -42,7 +51,10 @@ rows = int(math.ceil(itemList.__len__()/charPerRow))+1
 page = drawTable(pageS,cellS,rows,cols)
 
 # Randomize the itemlist
-permute = np.random.permutation(len(itemList))
+if(order == 0):
+    permute = np.random.permutation(len(itemList))
+else:
+    permute = range(len(itemList))
 
 # Fill items into the cell
 exerSheet, Solution = drawText(page, itemList,permute,pageS,cellS,rows,cols,opt)
