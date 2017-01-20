@@ -8,7 +8,18 @@ You can even modify the csv file to generate the dictation sheet based on your n
 Clone the github repository and use python 2.7 to compile it. 
 ```
 git clone https://github.com/whitefusion/randJapGenerator.git
-python rand50GenMain.py JapSyllabary.csv
+python *.csv -option -order
+-option: 
+
+-Roma: show roma pronounciation only 
+
+-Hara: show haragana only 
+
+-Help: show option list 
+
+-order: 
+
+-Normal: normal order
 ```
 Then you should get two pdfs "dictation.pdf" and "solution.pdf" in your working directory.
 
