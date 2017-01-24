@@ -40,7 +40,7 @@ if(opt == 0):
 
 # Default page size and cell size
 pageS = (1018,720)
-cellS = (36,40)
+cellS = (36,46)
 charPerRow = 5.0
 
 # Number of rows and cols depends on the size of documents
@@ -60,7 +60,7 @@ else:
 exerSheet, Solution = drawText(page, itemList,permute,pageS,cellS,rows,cols,opt)
 
 # Convert image to PDF and export
-size = [4*x for x in exerSheet.size]
+size = [8*x for x in exerSheet.size]
 exerSheet_resized = exerSheet.resize(size, Image.ANTIALIAS)
 Solution_resized = Solution.resize(size, Image.ANTIALIAS)
 exerSheet_resized.save("dictation.pdf")

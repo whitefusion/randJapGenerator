@@ -9,9 +9,12 @@ from getTextDimensions import GetTextDimensions
 def drawText(page, charList,idPermute,pageS,cellS,rows,cols,option) :
 
     # Set up page and text parameters
-    fontsize = 12
+    Japsize = 18
+    Alphasize = 12
     fontType = "yumindb"
-    font = ImageFont.truetype("material/yumindb.ttf", fontsize)
+    Japfont = ImageFont.truetype("material/yumindb.ttf", Japsize)
+    Alphafont = ImageFont.truetype("material/yumindb.ttf", Alphasize)
+
     page_copy = np.copy(page)
     pageIm = Image.fromarray(np.uint8(page) * 255)
     pageIm_copy = Image.fromarray(np.uint8(page_copy) * 255)
@@ -20,7 +23,7 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols,option) :
     tableWidth = cols * cellS[1]
     tableHeight = rows * cellS[0]
     topLeft = (topMargin, int((pageS[1]-tableWidth)/2))
-    yshift = fontsize/2; #font size is the height of the font
+    yshift = Alphasize/2;
 
     xstart = topLeft[1]+int(cellS[1]/2)
     xend   = pageS[1]-topLeft[1]-int(cellS[1]/2)
@@ -40,35 +43,38 @@ def drawText(page, charList,idPermute,pageS,cellS,rows,cols,option) :
     # Add text row by row
     # Need to slightly adjust the location of each text
     # in order to make them "look like" in the center of the box
-    xR,_ = GetTextDimensions("Roma", fontsize, fontType)
-    xH,_ = GetTextDimensions("Hira", fontsize, fontType)
-    xK,_ = GetTextDimensions("Kata", fontsize, fontType)
+    xR,_ = GetTextDimensions("Roma", Alphasize, fontType)
+    xH,_ = GetTextDimensions("Hira", Alphasize, fontType)
+    xK,_ = GetTextDimensions("Kata", Alphasize, fontType)
     for x in range(xstart, xend, xstep):
         randCharList = charArray[idPermute[ycount:min(ycount+rows-1,len(charList))],:]
 
-        pageDraw.text((x-(xR/2)-3, ystart), "Roma", font=font)
-        pageDrawNoAnswer.text((x-(xR/2), ystart), "Roma", font=font)
+        pageDraw.text((x-(xR/2)-3, ystart), "Roma", font=Alphafont)
+        pageDrawNoAnswer.text((x-(xR/2), ystart), "Roma", font=Alphafont)
+        # Roma
         for item in enumerate(randCharList):
-            x0,_=GetTextDimensions(item[1][0],fontsize,fontType)
-            pageDraw.text((x-(x0/2)-2,yrange[item[0]]),item[1][0],font = font)
+            x0,_=GetTextDimensions(item[1][0],Alphasize,fontType)
+            pageDraw.text((x-(x0/2)-2,yrange[item[0]]),item[1][0],font = Alphafont)
             if(option < 2):
-                pageDrawNoAnswer.text((x-(x0/2)-2, yrange[item[0]]), item[1][0], font=font)
+                pageDrawNoAnswer.text((x-(x0/2)-2, yrange[item[0]]), item[1][0], font=Alphafont)
 
+        #Hira
         x += (cellS[1] )
-        pageDraw.text((x-xH/2-3, ystart), "Hira", font=font)
-        pageDrawNoAnswer.text((x-xH/2, ystart), "Hira", font=font)
+        pageDraw.text((x-xH/2-3, ystart), "Hira", font=Alphafont)
+        pageDrawNoAnswer.text((x-xH/2, ystart), "Hira", font=Alphafont)
         for item in enumerate(randCharList):
-            x1, _ = GetTextDimensions(item[1][1], fontsize, fontType)
-            pageDraw.text((x-x1/2,yrange[item[0]]),unicode(item[1][1],"utf-8"),font = font)
+            x1, _ = GetTextDimensions(item[1][1], Japsize, fontType)
+            pageDraw.text((x-x1/2+4,yrange[item[0]]),unicode(item[1][1],"utf-8"),font = Japfont)
             if(option == 2):
-                pageDrawNoAnswer.text((x-(x0/2)-2, yrange[item[0]]), unicode(item[1][1],"utf-8"), font=font)
+                pageDrawNoAnswer.text((x-(x1/2)+4, yrange[item[0]]), unicode(item[1][1],"utf-8"), font=Japfont)
 
+        #Kata
         x += (cellS[1] )
-        pageDraw.text((x-xK/2-2, ystart), "Kata", font=font)
-        pageDrawNoAnswer.text((x-xK/2, ystart), "Kata", font=font)
+        pageDraw.text((x-xK/2-2, ystart), "Kata", font=Alphafont)
+        pageDrawNoAnswer.text((x-xK/2, ystart), "Kata", font=Alphafont)
         for item in enumerate(randCharList):
-            x2, _ = GetTextDimensions(item[1][2], fontsize, fontType)
-            pageDraw.text((x-x2/2,yrange[item[0]]),unicode(item[1][2],"utf-8"),font = font)
+            x2, _ = GetTextDimensions(item[1][2], Japsize, fontType)
+            pageDraw.text((x-x2/2+4,yrange[item[0]]),unicode(item[1][2],"utf-8"),font = Japfont)
 
         ycount += rows-1
 
