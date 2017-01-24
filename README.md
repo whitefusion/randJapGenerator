@@ -21,13 +21,14 @@ python *.csv -option -order
 
 -Normal: normal order
 ```
-Then you should get two pdfs "dictation.pdf" and "solution.pdf" in your working directory.
+Then you should get two pdfs "dictation.pdf" and "solution.pdf" in your working directory. <br/>
+Currently only work on Windows since I use windll to return font dimension for better layout.
+
 
 ## Necessary Modules 
 * Python Image Library(PIL)
 * skimage
 * matplotlib
 * numpy
-
 
 
