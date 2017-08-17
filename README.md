@@ -11,15 +11,15 @@ git clone https://github.com/whitefusion/randJapGenerator.git
 python *.csv -option -order
 -option: 
 
--Roma: show roma pronounciation only 
+  -Roma: show roma pronounciation only 
 
--Hara: show haragana only 
+  -Hara: show haragana only 
 
--Help: show option list 
+  -Help: show option list 
 
 -order: 
 
--Normal: normal order
+  -Normal: normal order
 ```
 Then you should get two pdfs "dictation.pdf" and "solution.pdf" in your working directory. <br/>
 Currently only work on Windows since I use windll to return font dimension for better layout.
